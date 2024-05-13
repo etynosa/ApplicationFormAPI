@@ -1,25 +1,32 @@
-var builder = WebApplication.CreateBuilder(args);
+using ApplicationFormAPI.Common;
+using ApplicationFormAPI.Infrastructure._DI;
+using Microsoft.Extensions.Logging;
 
-// Add services to the container.
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    // Add services to the container.
 
-var app = builder.Build();
+    builder.Services.RegisterAllDependencies(builder.Configuration);
+    builder.Services.AddAutoMapper(typeof(Program));
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    var app = builder.Build();
 
-app.UseHttpsRedirection();
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.UseAuthorization();
+    app.UseHttpsRedirection();
 
-app.MapControllers();
+    app.UseAuthorization();
+    app.ConfigureCustomExceptionMiddleware();
 
-app.Run();
+    app.MapControllers();
+
+    app.Run();
