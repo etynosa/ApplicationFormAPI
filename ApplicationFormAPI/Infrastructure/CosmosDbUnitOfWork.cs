@@ -17,20 +17,8 @@ namespace ApplicationFormAPI.Infrastructure
             _databaseId = cosmosOptions.Value.DatabaseId;
         }
 
-        private CosmosDbGenericRepository<CustomQuestion> _customQuestionRepository;
         private CosmosDbGenericRepository<ApplicationForm> _applicationFormRepository;
         private CosmosDbGenericRepository<SubmittedApplication> _submittedApplicationRepository;
-        public CosmosDbGenericRepository<CustomQuestion> CustomQuestionRepository
-        {
-            get
-            {
-                if (_customQuestionRepository == null)
-                {
-                    _customQuestionRepository = new CosmosDbGenericRepository<CustomQuestion>(_cosmosClient, _databaseId, nameof(CustomQuestion).ToString());
-                }
-                return _customQuestionRepository;
-            }
-        }  
         
         public CosmosDbGenericRepository<ApplicationForm> ApplicationFormRepository
         {

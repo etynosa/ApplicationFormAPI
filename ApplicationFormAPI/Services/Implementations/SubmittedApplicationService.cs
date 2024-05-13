@@ -42,6 +42,7 @@ namespace ApplicationFormAPI.Services.Implementations
         {
             var submittedApplication = _mapper.Map<SubmittedApplication>(submittedApplicationDto);
             submittedApplication.Id = Guid.NewGuid().ToString();
+            submittedApplication.PartitionKey = submittedApplication.Id;
             await _unitOfWork.SubmittedApplicationRepository.Create(submittedApplication);
             return true;
         }

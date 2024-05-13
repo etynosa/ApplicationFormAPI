@@ -21,6 +21,7 @@ namespace ApplicationFormAPI.Services.Implementations
         {
            var mappedApplicationForm = _mapper.Map<ApplicationForm>(applicationForm);
             mappedApplicationForm.Id = Guid.NewGuid().ToString();
+            mappedApplicationForm.PartitionKey = mappedApplicationForm.Id;
             await _unitOfWork.ApplicationFormRepository.Create(mappedApplicationForm);
             return true;
         } 

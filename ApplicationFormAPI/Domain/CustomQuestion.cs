@@ -3,7 +3,7 @@ using ApplicationFormAPI.Common.Enums;
 
 namespace ApplicationFormAPI.Domain
 {
-    public class CustomQuestion : BaseEntity<string>
+    public class CustomQuestion
     {
         public string Text { get; set; }
         public QuestionType Type { get; set; }
